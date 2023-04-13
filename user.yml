@@ -1,0 +1,48 @@
+---
+ - name: create user Raj on all machine
+   hosts: all
+   tasks: 
+         - name: Add group "admins"
+           group:
+                  name: admins
+                  gid: 2010
+                  state: present
+
+         - name: Add group "Office" to remote server
+           group:
+                  name: office
+                  gid: 2011
+                  state: present
+
+         - name: Add group "Warehouse" to remote server
+           group:
+                  name: warehouse
+                  gid: 2012
+                  state: present
+          
+         - name: create user raj  
+           user:
+                  name: raj
+                  state: present
+                  shell: /bin/bash
+                  comment: "created by shubham"
+                  uid: 1022
+                  group: admins
+                  groups: office,warehouse
+                  append: yes
+                  password: 'redhat'
+                  createhome: yes
+                  home: /home/raj
+
+          - name: creat a directory name cooling
+            file:
+                  path: /cooling
+                  state: directory
+                  mode: '777'
+
+          - name: install chrony package
+            yum:
+                  name: chrony
+                  state: present
+
+

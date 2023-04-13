@@ -1,0 +1,22 @@
+---
+ - name: crate a new user
+   hosts: all
+   vars_files:
+         - ./variablefile
+   tasks:
+         - name: create user
+           user:
+                 name: "{{ my_user }}"
+                 state: present
+
+         - name: install a package
+           yum:
+                 name: "{{ my_pkg }}"
+                 state: present
+
+         - name: create group
+           group: 
+                 name: "{{ my_group }}"
+                 state: present
+
+
